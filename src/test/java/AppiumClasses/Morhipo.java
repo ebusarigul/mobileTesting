@@ -10,12 +10,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import java.awt.event.KeyEvent;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.TimeUnit;
 
-public class First_Test {
+public class Morhipo {
 
     public AppiumDriver<WebElement> driver;
     public WebDriverWait wait;

@@ -1,27 +1,24 @@
 package AppiumClasses;
 
-import com.vrgsl.qa.mobile.di.Injectable;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileDriver;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
+import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import javax.inject.Inject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class test2 implements Injectable {
+public class PlenaMasrafLogin2 {
 
-    public AppiumDriver<WebElement> driver;
+    public AndroidDriver<AndroidElement> driver;
     public WebDriverWait wait;
-    @Inject
-    MobileDriver mobileDriver;
 
     By girisYap = By.xpath("//android.widget.Button[@content-desc=\"Giriş Yap\"]");
     By email = By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.widget.ScrollView/android.widget.EditText[1]");
@@ -35,16 +32,14 @@ public class test2 implements Injectable {
         try {
             DesiredCapabilities cap = new DesiredCapabilities();
 
-            cap.setCapability("deviceName", "1fd655780709");
-            cap.setCapability("platformName", "Android");
-            cap.setCapability("udid", "emulator-5554");
-            cap.setCapability("platformVersion", "11.0");
-            cap.setCapability("appPackage", "tr.com.biscozum.expensemobile");
-            cap.setCapability("appActivity", "tr.com.biscozum.expensemobile.MainActivity");
-            cap.setCapability("skipUnlock", "true");
-            cap.setCapability("noReset", "false");
+            cap.setCapability(MobileCapabilityType.AUTOMATION_NAME,"UIAutomator2");
+            cap.setCapability(MobileCapabilityType.PLATFORM_NAME,"Android");
+            cap.setCapability(MobileCapabilityType.PLATFORM_VERSION,"11.0");
+            cap.setCapability(MobileCapabilityType.DEVICE_NAME,"Pixel_2");
+            cap.setCapability(MobileCapabilityType.APP,"/Users/user/Desktop/app-debug.apk");
+            cap.setCapability(MobileCapabilityType.NO_RESET,"true");
 
-            driver = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"),cap);
+            driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"),cap);
             wait = new WebDriverWait(driver,10);
         }
 
@@ -71,9 +66,11 @@ public class test2 implements Injectable {
         WebElement passwordInput = driver.findElement(password);
         passwordInput.click();
         bekle(2);
-        passwordInput.sendKeys("Asd1234.");
+        passwordInput.sendKeys("Abcd1234.");
         bekle(3);
         // giris yap a tıklanır
+        driver.pressKey(new KeyEvent(AndroidKey.BACK));
+        bekle(3);
         WebElement loginBtn = driver.findElement(girisYapButonu);
         loginBtn.click();
         bekle(10);
@@ -88,10 +85,6 @@ public class test2 implements Injectable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void PhoneBackButton() {
-
     }
 
 
